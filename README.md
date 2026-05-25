@@ -56,6 +56,14 @@ python scripts/chatbot.py
 pytest tests/test_data.py -v
 ```
 
+### 5. Évaluer le système
+
+```bash
+python scripts/evaluate.py
+```
+
+Lance le chatbot sur les 8 questions annotées du jeu de test et sauvegarde les résultats dans `data/evaluation_results.json`.
+
 ## Structure du projet
 
 puls-events-rag/
@@ -63,11 +71,13 @@ puls-events-rag/
 │   ├── events_raw.json      # données nettoyées (généré)
 │   ├── events.csv           # données au format CSV (généré)
 │   ├── faiss_index/         # index vectoriel (généré)
-│   └── test_qa.json         # jeu de données annoté Q/R
+│   ├── test_qa.json         # jeu de données annoté Q/R
+│   └── evaluation_results.json  # résultats d'évaluation (généré)
 ├── scripts/
 │   ├── fetch_events.py      # collecte et nettoyage des données
 │   ├── vectorize.py         # chunking et vectorisation FAISS
-│   └── chatbot.py           # chatbot RAG interactif
+│   ├── chatbot.py           # chatbot RAG interactif
+│   └── evaluate.py          # évaluation sur jeu de données annoté
 ├── tests/
 │   └── test_data.py         # 8 tests unitaires
 ├── .env                     # clés API (non versionné)
