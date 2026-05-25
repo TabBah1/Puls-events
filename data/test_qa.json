@@ -1,0 +1,34 @@
+[
+  {
+    "question": "Y a-t-il des concerts de musique classique à Paris prochainement ?",
+    "reponse_attendue": "Oui, il existe des concerts de musique classique à Paris, notamment le festival Les Mélodies des Rails avec 150 artistes sur la Petite Ceinture, et des concerts mêlant classique et musiques actuelles à l'Église Évangélique Paris-Alésia."
+  },
+  {
+    "question": "Quels événements sont gratuits à Paris ?",
+    "reponse_attendue": "Le festival Les Mélodies des Rails sur la Petite Ceinture est gratuit et en plein air. Des balades comme la découverte de la biodiversité de la Petite Ceinture sont également en accès libre."
+  },
+  {
+    "question": "Propose-moi une activité culturelle pour enfants à Paris.",
+    "reponse_attendue": "L'exposition Les vêtements d'Armand et de La Princesse coquette est une exposition jeunesse accessible aux enfants. L'exposition Clair-obscur propose également des visites guidées avec jeux d'observation adaptés aux enfants."
+  },
+  {
+    "question": "Quels événements se passent sur la Petite Ceinture ?",
+    "reponse_attendue": "Le festival Les Mélodies des Rails se tient sur la Petite Ceinture le 14 septembre 2025, avec des concerts gratuits en plein air. Une balade de découverte de la biodiversité et des poèmes est également proposée sur ce site."
+  },
+  {
+    "question": "Y a-t-il des activités poétiques ou littéraires à Paris ?",
+    "reponse_attendue": "Oui, plusieurs activités poétiques sont disponibles : une balade poétique avec la Maison de la Poésie, des soirées de poésie interactive avec Nayan Marchal à l'Ernestine Café, et une soirée poétique à la Salle Saint-Fargeau en avril 2026."
+  },
+  {
+    "question": "Quels concerts de jazz peut-on trouver à Paris ?",
+    "reponse_attendue": "On trouve notamment des jam sessions jazz tous les dimanches de 17h à 21h, ainsi que le concert Entre classique et musiques actuelles à l'Église Évangélique Paris-Alésia qui mêle jazz, classique et pop."
+  },
+  {
+    "question": "Quels événements culturels ont lieu en juin 2026 à Paris ?",
+    "reponse_attendue": "En juin 2026, on trouve le concert Entre classique et musiques actuelles le 21 juin à l'Église Évangélique Paris-Alésia, et le concert Mozart et Thuille en sextuor le 13 juin."
+  },
+  {
+    "question": "Existe-t-il des ateliers d'écriture à Paris ?",
+    "reponse_attendue": "Oui, il existe un atelier d'écriture petits papiers à Paris ainsi qu'une conférence sur comment bien démarrer un projet d'écriture."
+  }
+]
