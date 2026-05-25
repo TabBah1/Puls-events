@@ -12,6 +12,7 @@ data/faiss_index/
 # Données brutes (reconstructibles via fetch_events.py)
 data/events_raw.json
 data/events.csv
+data/events_paris.json
 
 # Cache Jupyter
 .ipynb_checkpoints/
