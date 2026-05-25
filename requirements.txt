@@ -23,6 +23,7 @@ httpx-sse==0.4.3
 huggingface_hub==1.16.1
 idna==3.16
 importlib_metadata==8.7.1
+iniconfig==2.3.0
 jsonpatch==1.33
 jsonpath-python==1.1.6
 jsonpointer==3.1.1
@@ -49,11 +50,13 @@ orjson==3.11.9
 ormsgpack==1.12.2
 packaging==26.0
 pandas==3.0.3
+pluggy==1.6.0
 propcache==0.5.2
 pydantic==2.13.4
 pydantic-settings==2.14.1
 pydantic_core==2.46.4
 Pygments==2.20.0
+pytest==9.0.3
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.2
 PyYAML==6.0.3
