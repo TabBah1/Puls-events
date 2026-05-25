@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Y a-t-il des concerts de musique classique à Paris prochainement ?",
+    "reponse_attendue": "Oui, il existe des concerts de musique classique à Paris, notamment le festival Les Mélodies des Rails avec 150 artistes sur la Petite Ceinture, et des concerts mêlant classique et musiques actuelles à l'Église Évangélique Paris-Alésia.",
+    "reponse_generee": "Oui, il y a des concerts de musique classique à Paris prochainement :\n\n1. **Concert varié (classique, jazz, pop)** à l'église protestante évangélique Paris-Alésia\n   - **Date** : 21/06/2026 de 16h à 18h\n   - **Lieu** : 85 rue d'Alésia, 75014 Paris\n\n2. **Festival \"Les Mélodies des Rails\"** (musique classique en plein air)\n   - **Date** : 14/09/2025 de 14h à 19h30\n   - **Lieu** : Petite Ceinture, porte de Clignancourt (18ème)\n\n3. **Concerts classiques de la pianiste Laoise McMullin** au Centre Culturel Irlandais\n   - **Dates** : 20/09/2025 (13h) au 21/09/2025 (15h20)\n   - **Lieu** : 5 rue des Irlandais, 75005 Paris\n\n4. **Concert de musique classique** à la Salle Saint-Fargeau (prix libre)\n   - **Date** : 12/04/2026\n   - **Lieu** : Salle Saint-Fargeau, Paris 20ème"
+  },
+  {
+    "question": "Quels événements sont gratuits à Paris ?",
+    "reponse_attendue": "Le festival Les Mélodies des Rails sur la Petite Ceinture est gratuit et en plein air. Des balades comme la découverte de la biodiversité de la Petite Ceinture sont également en accès libre.",
+    "reponse_generee": "D'après le contexte fourni, voici les événements gratuits à Paris :\n\n1. **Soirée avec l'artiste** (12 avril 2026, Salle Saint-Fargeau, Paris 20ème) :\n   - **Gratuit** (prix libre), places limitées.\n   - Réservation possible sur [hormur.com](https://hormur.com).\n\n2. **Soirée d'observation** (lieu non précisé) :\n   - **Gratuit**, ouvert à toutes et à tous sans inscription.\n   - Possibilité d'apporter jumelles ou télescope.\n\n3. **Open Air** (4 Rue Poissonnière, 75002 Paris) :\n   - **Gratuit** et ouvert à toutes et à tous.\n   - Buvette sur place (happy hour jusqu’à 21h).\n\n*Aucune information gratuite n'est mentionnée pour l'atelier bijoux (inscription requise).*"
+  },
+  {
+    "question": "Propose-moi une activité culturelle pour enfants à Paris.",
+    "reponse_attendue": "L'exposition Les vêtements d'Armand et de La Princesse coquette est une exposition jeunesse accessible aux enfants. L'exposition Clair-obscur propose également des visites guidées avec jeux d'observation adaptés aux enfants.",
+    "reponse_generee": "**Activité culturelle pour enfants à Paris :**\n\n**\"Jeux et activités pour enfants autour de l'histoire de Paris\"**\n📍 **Lieu :** Archives départementales et communales de Paris (18 boulevard Sérurier, 75019 Paris)\n📅 **Dates :** 20/09/2025 (11h30) au 21/09/2025 (16h)\n🎯 **Public :** Enfants (atelier ludique et éducatif)\n🔗 **Plus d'infos :** [OpenAgenda](https://openagenda.com/culture/events/jeux-et-activites-pour-enfants-autour-de-lhistoire-de-paris-5624709)\n\n*Atelier/démonstration/savoir-faire pour découvrir l'histoire de Paris de manière interactive.*"
+  },
+  {
+    "question": "Quels événements se passent sur la Petite Ceinture ?",
+    "reponse_attendue": "Le festival Les Mélodies des Rails se tient sur la Petite Ceinture le 14 septembre 2025, avec des concerts gratuits en plein air. Une balade de découverte de la biodiversité et des poèmes est également proposée sur ce site.",
+    "reponse_generee": "Sur la Petite Ceinture à Paris, deux événements sont mentionnés dans le contexte :\n\n1. **Découverte de la biodiversité et cueillette autonome** (14 septembre 2025, 14h-19h30) :\n   - Accès libre et gratuit au 110 bis rue du Ruisseau (Porte de Clignancourt).\n   - Ateliers sur les règles de cueillette, botanique, et découverte des plantes sauvages et des poèmes.\n\n2. **Festival \"Les Mélodies des Rails\"** (14 septembre 2025, 14h-19h30) :\n   - Festival gratuit de musique classique en plein air.\n   - Environ 150 artistes sur un parquet posé sur les rails, sous le pont du Ruisseau."
+  },
+  {
+    "question": "Y a-t-il des activités poétiques ou littéraires à Paris ?",
+    "reponse_attendue": "Oui, plusieurs activités poétiques sont disponibles : une balade poétique avec la Maison de la Poésie, des soirées de poésie interactive avec Nayan Marchal à l'Ernestine Café, et une soirée poétique à la Salle Saint-Fargeau en avril 2026.",
+    "reponse_generee": "Oui, voici des activités poétiques ou littéraires à Paris mentionnées dans le contexte :\n\n1. **Poésie interactive avec Nayan Marchal** à l'Ernestine Café – Un moment intimiste où vous choisissez les thèmes et écoutez des poèmes (improvisés ou d'auteurs classiques).\n   📅 *Non précisé* | 📍 Ernestine Café | 🎟️ *Non précisé*\n\n2. **Atelier de création d'un podcast culturel** dans le cadre des *Bibliothèques du 10e* (Claire Bretécher, François Villon, Françoise Sagan) – Découverte des étapes de création d'une émission de radio.\n   📅 *Non précisé* | 📍 Bibliothèques du 10e\n\n3. **Déambulation poétique** avec la Maison de la Poésie – Redécouverte de Paris à travers des impressions, créations et échanges artistiques.\n   📅 *Non précisé* | 📍 Paris (lieu non précisé)\n\nPour plus de détails (dates, réservations), consultez les liens ou sites associés."
+  },
+  {
+    "question": "Quels concerts de jazz peut-on trouver à Paris ?",
+    "reponse_attendue": "On trouve notamment des jam sessions jazz tous les dimanches de 17h à 21h, ainsi que le concert Entre classique et musiques actuelles à l'Église Évangélique Paris-Alésia qui mêle jazz, classique et pop.",
+    "reponse_generee": "D'après le contexte fourni, voici les concerts de jazz disponibles à Paris :\n\n1. **Zoot Collectif** – Tous les dimanches à **19h30** (et aussi à **21h30** selon le premier extrait).\n   - Un rendez-vous jazz vivant avec des formations changeantes, des nouvelles compositions et des hommages aux grands noms du jazz.\n\n*(Note : Les informations sur les échecs et la jam session jazz de 17h à 21h ne concernent pas spécifiquement des concerts de jazz.)*"
+  },
+  {
+    "question": "Quels événements culturels ont lieu en juin 2026 à Paris ?",
+    "reponse_attendue": "En juin 2026, on trouve le concert Entre classique et musiques actuelles le 21 juin à l'Église Évangélique Paris-Alésia, et le concert Mozart et Thuille en sextuor le 13 juin.",
+    "reponse_generee": "D'après le contexte fourni, **aucun événement culturel n'est mentionné pour juin 2026 à Paris**.\n\nLes événements listés concernent :\n- **Mai à Vélo 2026** (avril-mai 2026)\n- Une performance artistique le **12 avril 2026**\n- Une exposition du **16 avril au 11 juillet 2026** (vernissage le 15 avril)\n- Un concert le **23 mai 2026**\n\nSi vous souhaitez des informations sur d'autres mois ou des événements non cités ici, je ne peux pas vous répondre."
+  },
+  {
+    "question": "Existe-t-il des ateliers d'écriture à Paris ?",
+    "reponse_attendue": "Oui, il existe un atelier d'écriture petits papiers à Paris ainsi qu'une conférence sur comment bien démarrer un projet d'écriture.",
+    "reponse_generee": "Oui, il existe des ateliers d'écriture à Paris, notamment :\n\n1. **Atelier d'écriture pour artistes** (initier un court-métrage, un pilote de série, etc.)\n   - **Date** : 20/09/2025 de 14h30 à 15h30\n   - **Lieu** : 100 rue Didot, 75014 Paris\n   - **Plus d'infos** : [Lien vers l'événement](https://openagenda.com/culture/events/ecrire-pour-ne-pas-mourir-femmage-a-anne-sylvestre)\n\n2. **Ateliers autour du végétal en ville et de la transition écologique** (discussions et création)\n   - **Lieu non précisé dans le contexte** (mais mentionnés comme existants).\n\nSi vous cherchez un type spécifique d'atelier d'écriture, précisez votre demande."
+  }
+]
