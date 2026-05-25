@@ -1,0 +1,20 @@
+# Environnement
+.env
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Index FAISS (lourd, reconstructible)
+data/faiss_index/
+
+# Données brutes (reconstructibles via fetch_events.py)
+data/events_raw.json
+data/events.csv
+
+# Cache Jupyter
+.ipynb_checkpoints/
+
+# Cache HuggingFace
+.cache/
