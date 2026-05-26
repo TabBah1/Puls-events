@@ -66,8 +66,7 @@ Lance le chatbot sur les 8 questions annotées du jeu de test et sauvegarde les 
 
 ## Structure du projet
 
-```
-puls-events-rag/
+```puls-events-rag/
 ├── data/
 │   ├── events_raw.json      # données nettoyées (généré)
 │   ├── events.csv           # données au format CSV (généré)
