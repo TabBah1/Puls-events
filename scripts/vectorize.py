@@ -1,6 +1,19 @@
+"""
+Module de vectorisation et d'indexation des événements dans FAISS.
+
+Ce module charge les événements nettoyés, construit des textes
+d'indexation enrichis, découpe les textes en chunks, génère les
+embeddings via l'API Mistral et construit l'index vectoriel FAISS
+sauvegardé localement.
+
+Le pipeline est reconstructible à tout moment en relançant ce script.
+
+Auteur : Ingénieur Data Freelance — Puls-Events
+Date   : Mai 2026
+"""
+
 import json
 import os
-import pandas as pd
 from datetime import datetime
 from dotenv import load_dotenv
 from langchain_core.documents import Document
@@ -13,86 +26,115 @@ load_dotenv()
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 
 
-def load_events():
+def load_events(filepath: str = "data/events_raw.json") -> list:
     """
-    Charge les événements nettoyés depuis le fichier JSON
+    Charge les événements nettoyés depuis un fichier JSON.
+
+    Args:
+        filepath (str): Chemin vers le fichier JSON des événements.
+                        Par défaut "data/events_raw.json".
+
+    Returns:
+        list: Liste de dictionnaires d'événements.
+
+    Raises:
+        FileNotFoundError: Si le fichier JSON est absent.
+        json.JSONDecodeError: Si le fichier JSON est malformé.
+
+    Example:
+        >>> events = load_events()
+        >>> print(len(events))
+        497
     """
-    with open("data/events_raw.json", "r", encoding="utf-8") as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         events = json.load(f)
     print(f"{len(events)} événements chargés")
     return events
 
 
-def build_text_for_indexing(event):
+def build_text_for_indexing(event: dict) -> str:
     """
-    Construit un texte riche pour chaque événement.
-    C'est ce texte qui sera vectorisé.
-    Plus il est informatif, meilleure sera la recherche.
+    Construit un texte riche et structuré à partir des métadonnées
+    d'un événement.
+
+    Ce texte sera vectorisé par le modèle d'embedding. Plus il est
+    informatif, meilleure sera la précision de la recherche sémantique.
+
+    Args:
+        event (dict): Dictionnaire d'un événement nettoyé contenant
+                      les champs titre, categories, description,
+                      lieu_nom, lieu_adresse, lieu_ville, date_debut,
+                      date_fin, url.
+
+    Returns:
+        str: Texte multi-lignes structuré prêt à la vectorisation.
+
+    Example:
+        >>> text = build_text_for_indexing(event)
+        >>> print(text[:50])
+        Titre : Festival de Jazz
     """
     parts = []
 
     if event.get("titre"):
         parts.append(f"Titre : {event['titre']}")
-
     if event.get("categories"):
         parts.append(f"Catégorie : {event['categories']}")
-
     if event.get("tags"):
         parts.append(f"Tags : {event['tags']}")
-
     if event.get("description"):
         parts.append(f"Description : {event['description']}")
-
     if event.get("description_longue"):
         parts.append(f"Détails : {event['description_longue']}")
-
     if event.get("lieu_nom"):
         parts.append(f"Lieu : {event['lieu_nom']}")
-
     if event.get("lieu_adresse"):
         parts.append(f"Adresse : {event['lieu_adresse']}")
-
     if event.get("lieu_ville"):
         parts.append(f"Ville : {event['lieu_ville']}")
-
     if event.get("date_debut"):
-        # Formatage de la date pour la rendre lisible
         try:
             dt = datetime.fromisoformat(event["date_debut"])
-            date_str = dt.strftime("%d/%m/%Y à %H:%M")
-            parts.append(f"Date de début : {date_str}")
-        except:
+            parts.append(f"Date de début : {dt.strftime('%d/%m/%Y à %H:%M')}")
+        except Exception:
             parts.append(f"Date de début : {event['date_debut']}")
-
     if event.get("date_fin"):
         try:
             dt = datetime.fromisoformat(event["date_fin"])
-            date_str = dt.strftime("%d/%m/%Y à %H:%M")
-            parts.append(f"Date de fin : {date_str}")
-        except:
+            parts.append(f"Date de fin : {dt.strftime('%d/%m/%Y à %H:%M')}")
+        except Exception:
             parts.append(f"Date de fin : {event['date_fin']}")
-
     if event.get("url"):
         parts.append(f"Plus d'infos : {event['url']}")
 
     return "\n".join(parts)
 
 
-def create_documents(events):
+def create_documents(events: list) -> list:
     """
-    Convertit chaque événement en objet Document LangChain
-    avec son texte et ses métadonnées
+    Convertit les événements en objets Document LangChain.
+
+    Chaque document contient le texte d'indexation enrichi et les
+    métadonnées structurées de l'événement (titre, lieu, dates, url).
+
+    Args:
+        events (list): Liste de dictionnaires d'événements nettoyés.
+
+    Returns:
+        list: Liste d'objets Document LangChain prêts au chunking.
+
+    Example:
+        >>> docs = create_documents(events)
+        >>> print(docs[0].metadata['titre'])
+        Festival de Jazz
     """
     documents = []
 
     for event in events:
         text = build_text_for_indexing(event)
-
         if not text.strip():
             continue
 
-        # Les métadonnées sont stockées séparément du texte vectorisé
-        # Elles permettront d'afficher les infos structurées dans les réponses
         metadata = {
             "uid": str(event.get("uid", "")),
             "titre": event.get("titre", ""),
@@ -103,68 +145,93 @@ def create_documents(events):
             "categories": event.get("categories", ""),
             "url": event.get("url", "")
         }
-
         documents.append(Document(page_content=text, metadata=metadata))
 
     print(f"{len(documents)} documents créés")
     return documents
 
 
-def chunk_documents(documents):
+def chunk_documents(documents: list) -> list:
     """
-    Découpe les documents en chunks.
-    chunk_size=500 : taille maximale de chaque morceau
-    chunk_overlap=50 : chevauchement pour ne pas perdre le contexte
+    Découpe les documents en chunks pour la vectorisation.
+
+    Utilise RecursiveCharacterTextSplitter avec une taille de 500
+    caractères et un chevauchement de 50 caractères pour préserver
+    le contexte entre les morceaux.
+
+    Args:
+        documents (list): Liste d'objets Document LangChain.
+
+    Returns:
+        list: Liste de chunks (objets Document) prêts à la vectorisation.
+
+    Note:
+        Le chevauchement (overlap) évite de couper les informations
+        cruciales comme les dates ou adresses en plein milieu.
+
+    Example:
+        >>> chunks = chunk_documents(documents)
+        >>> print(len(chunks))
+        2025
     """
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=50,
         separators=["\n\n", "\n", ".", " "]
     )
-
     chunks = splitter.split_documents(documents)
     print(f"{len(chunks)} chunks créés après découpage")
     return chunks
 
 
-def build_faiss_index(chunks):
+def build_faiss_index(chunks: list, index_path: str = "data/faiss_index"):
     """
-    Vectorise les chunks avec Mistral et construit l'index FAISS
+    Vectorise les chunks et construit l'index FAISS local.
+
+    Appelle l'API Mistral pour générer les embeddings de chaque chunk,
+    construit l'index FAISS en mémoire, puis le sauvegarde sur disque
+    pour réutilisation sans recalcul.
+
+    Args:
+        chunks (list): Liste de chunks (objets Document LangChain).
+        index_path (str): Chemin du dossier de sauvegarde de l'index.
+                          Par défaut "data/faiss_index".
+
+    Returns:
+        FAISS: Instance du vectorstore FAISS chargée en mémoire.
+
+    Side effects:
+        Crée ou écrase le dossier index_path avec index.faiss et index.pkl.
+
+    Raises:
+        Exception: En cas d'erreur d'appel à l'API Mistral.
+
+    Example:
+        >>> vectorstore = build_faiss_index(chunks)
+        >>> results = vectorstore.similarity_search("concert jazz", k=3)
     """
     print("Connexion à l'API Mistral et génération des embeddings...")
-    print("Cette étape peut prendre quelques minutes selon le nombre de chunks...")
+    print("Cette étape peut prendre quelques minutes...")
 
     embeddings = MistralAIEmbeddings(
         model="mistral-embed",
         mistral_api_key=MISTRAL_API_KEY
     )
 
-    # Construction de l'index FAISS
-    # LangChain envoie les chunks par batch à l'API Mistral
     vectorstore = FAISS.from_documents(chunks, embeddings)
+    os.makedirs(index_path, exist_ok=True)
+    vectorstore.save_local(index_path)
 
-    # Sauvegarde locale de l'index
-    os.makedirs("data/faiss_index", exist_ok=True)
-    vectorstore.save_local("data/faiss_index")
-
-    print("Index FAISS sauvegardé dans data/faiss_index/")
+    print(f"Index FAISS sauvegardé dans {index_path}/")
     return vectorstore
 
 
 if __name__ == "__main__":
-    # 1. Chargement
     events = load_events()
-
-    # 2. Création des documents LangChain
     documents = create_documents(events)
-
-    # 3. Chunking
     chunks = chunk_documents(documents)
-
-    # 4. Vectorisation + indexation FAISS
     vectorstore = build_faiss_index(chunks)
 
-    # 5. Test rapide de recherche
     print("\n--- Test de recherche ---")
     query = "concert de musique à Paris ce weekend"
     results = vectorstore.similarity_search(query, k=3)

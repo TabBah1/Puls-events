@@ -1,3 +1,18 @@
+"""
+Module de collecte et de nettoyage des données événementielles.
+
+Ce module récupère les événements culturels parisiens depuis le dataset
+public Open Agenda hébergé sur OpenDataSoft, applique des filtres
+géographiques et temporels, puis sauvegarde les données nettoyées
+pour la vectorisation.
+
+Source : https://public.opendatasoft.com/api/explore/v2.1/catalog/
+         datasets/evenements-publics-openagenda/records
+
+Auteur : Ingénieur Data Freelance — Puls-Events
+Date   : Mai 2026
+"""
+
 import requests
 import pandas as pd
 import json
@@ -7,14 +22,35 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Source officielle Open Agenda via OpenDataSoft - aucune clé requise
-BASE_URL = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records"
+BASE_URL = (
+    "https://public.opendatasoft.com/api/explore/v2.1/"
+    "catalog/datasets/evenements-publics-openagenda/records"
+)
 
 
-def fetch_events_paris(max_events=500):
+def fetch_events_paris(max_events: int = 500) -> list:
     """
-    Récupère les événements Open Agenda filtrés sur Paris
-    et sur les 12 derniers mois + événements à venir
+    Récupère les événements culturels parisiens via l'API OpenDataSoft.
+
+    Applique un filtre temporel sur les 12 derniers mois et un filtre
+    géographique sur la ville de Paris. La pagination est gérée
+    automatiquement par offset.
+
+    Args:
+        max_events (int): Nombre maximum d'événements à récupérer.
+                          Par défaut 500.
+
+    Returns:
+        list: Liste de dictionnaires bruts au format OpenDataSoft.
+              Retourne une liste vide en cas d'erreur API.
+
+    Raises:
+        requests.exceptions.RequestException: En cas de problème réseau.
+
+    Example:
+        >>> events = fetch_events_paris(max_events=100)
+        >>> print(len(events))
+        100
     """
     date_from = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
 
@@ -58,10 +94,29 @@ def fetch_events_paris(max_events=500):
     return all_events
 
 
-def clean_events(raw_events):
+def clean_events(raw_events: list) -> list:
     """
-    Nettoie et structure les événements bruts
-    du format Open Agenda / OpenDataSoft
+    Nettoie et structure les événements bruts issus de l'API OpenDataSoft.
+
+    Extrait les champs pertinents pour le système RAG, construit
+    les textes d'indexation et filtre les entrées invalides (sans titre
+    ni description).
+
+    Args:
+        raw_events (list): Liste de dictionnaires bruts retournés
+                           par l'API OpenDataSoft.
+
+    Returns:
+        list: Liste de dictionnaires nettoyés et structurés contenant
+              les champs : uid, titre, description, description_longue,
+              lieu_nom, lieu_ville, lieu_adresse, date_debut, date_fin,
+              categories, tags, url.
+
+    Example:
+        >>> raw = fetch_events_paris(100)
+        >>> cleaned = clean_events(raw)
+        >>> print(cleaned[0].keys())
+        dict_keys(['uid', 'titre', 'description', ...])
     """
     cleaned = []
 
@@ -70,16 +125,13 @@ def clean_events(raw_events):
             title = event.get("title_fr", event.get("title_en", "Sans titre"))
             description = event.get("description_fr", event.get("description_en", ""))
             long_desc = event.get("longdescription_fr", event.get("longdescription_en", ""))
-
             desc_finale = description if description else long_desc
 
             lieu_nom = event.get("location_name", "")
             lieu_ville = event.get("location_city", "Paris")
             lieu_adresse = event.get("location_address", "")
-
             date_debut = event.get("firstdate_begin", "")
             date_fin = event.get("lastdate_end", "")
-
             categories = event.get("category_fr", "")
             tags = event.get("tags_fr", "")
             url = event.get("canonicalurl", "")
@@ -110,7 +162,28 @@ def clean_events(raw_events):
     return cleaned
 
 
-def save_events(cleaned_events):
+def save_events(cleaned_events: list) -> pd.DataFrame:
+    """
+    Sauvegarde les événements nettoyés en JSON et CSV.
+
+    Crée le dossier data/ si absent. Les deux formats sont générés
+    pour faciliter l'inspection manuelle (CSV) et la vectorisation (JSON).
+
+    Args:
+        cleaned_events (list): Liste de dictionnaires nettoyés produits
+                                par clean_events().
+
+    Returns:
+        pd.DataFrame: DataFrame pandas des événements sauvegardés.
+
+    Side effects:
+        Crée ou écrase data/events_raw.json et data/events.csv.
+
+    Example:
+        >>> df = save_events(cleaned)
+        >>> print(df.shape)
+        (497, 11)
+    """
     os.makedirs("data", exist_ok=True)
 
     with open("data/events_raw.json", "w", encoding="utf-8") as f:
