@@ -9,7 +9,7 @@ pour la vectorisation.
 Source : https://public.opendatasoft.com/api/explore/v2.1/catalog/
          datasets/evenements-publics-openagenda/records
 
-Auteur : Ingénieur Data Freelance — Puls-Events
+Auteur : Abdoulaye BAH
 Date   : Mai 2026
 """
 

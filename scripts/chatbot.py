@@ -8,10 +8,9 @@ Ce module implémente la chaîne RAG complète :
     4. Génération de la réponse via Mistral
 
 Le chatbot fonctionne en mode interactif dans le terminal.
-L'historique de conversation n'est pas conservé entre les échanges
-(hors périmètre du POC).
+L'historique de conversation n'est pas conservé entre les échanges.
 
-Auteur : Ingénieur Data Freelance — Puls-Events
+Auteur : Abdoulaye BAH
 Date   : Mai 2026
 """
 

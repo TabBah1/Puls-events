@@ -8,7 +8,7 @@ sauvegardé localement.
 
 Le pipeline est reconstructible à tout moment en relançant ce script.
 
-Auteur : Ingénieur Data Freelance — Puls-Events
+Auteur : Abdoulaye BAH
 Date   : Mai 2026
 """
 

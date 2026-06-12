@@ -8,7 +8,7 @@ générées pour comparaison avec les réponses de référence.
 Le jeu de données annoté (data/test_qa.json) constitue le Ground Truth
 permettant d'évaluer la qualité et la pertinence des réponses du chatbot.
 
-Auteur : Ingénieur Data Freelance — Puls-Events
+Auteur : Abdoulaye BAH
 Date   : Mai 2026
 """
 

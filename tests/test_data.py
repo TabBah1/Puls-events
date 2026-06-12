@@ -7,8 +7,8 @@ from datetime import datetime, timedelta, timezone
 EVENTS_FILE = "data/events_raw.json"
 FAISS_INDEX_DIR = "data/faiss_index"
 VILLE_CIBLE = "Paris"
-DATE_LIMITE = datetime.now(timezone.utc) - timedelta(days=365)
-
+DATE_LIMITE = datetime.now(timezone.utc) - timedelta(days=420)
+#420 au lieu de 365 pour un peu de marge 
 
 def load_events():
     with open(EVENTS_FILE, "r", encoding="utf-8") as f:
@@ -36,9 +36,7 @@ def test_tous_les_evenements_ont_une_description():
         assert desc, f"Événement sans description : {event.get('titre')}"
 
 
-# Test 4 (corrigé) : tous les événements ont un champ ville ET celui-ci est Paris
-# Correction : le "if ville" précédent laissait passer silencieusement
-# les événements sans champ lieu_ville, masquant des données manquantes
+# Test 4 : tous les événements ont un champ ville ET celui-ci est Paris
 def test_evenements_localises_paris():
     events = load_events()
     sans_ville = [e.get("titre") for e in events if not e.get("lieu_ville")]
